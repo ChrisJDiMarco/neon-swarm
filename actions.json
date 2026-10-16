@@ -1,0 +1,106 @@
+{
+ "actions": [
+  {
+   "name": "addUpgrade",
+   "description": "Add a selected upgrade to the current run's equipment list",
+   "input": {
+    "type": "object",
+    "properties": {
+     "upgradeId": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "upgradeId"
+    ]
+   },
+   "data": {
+    "op": "add",
+    "at": [
+     "meta.runs[0].b"
+    ],
+    "value": {
+     "id": "{upgradeId}",
+     "level": 1
+    }
+   }
+  },
+  {
+   "name": "logRunStats",
+   "description": "Log the results of a completed run",
+   "input": {
+    "type": "object",
+    "properties": {
+     "timeSurvived": {
+      "type": "number"
+     },
+     "kills": {
+      "type": "number"
+     },
+     "levelReached": {
+      "type": "number"
+     },
+     "coreCount": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "timeSurvived",
+     "kills",
+     "levelReached",
+     "coreCount"
+    ]
+   },
+   "data": {
+    "op": "add",
+    "at": [
+     "meta.runs"
+    ],
+    "value": {
+     "t": {
+      "type": "number",
+      "value": {
+       "input": "timeSurvived"
+      }
+     },
+     "k": {
+      "type": "number",
+      "value": {
+       "input": "kills"
+      }
+     },
+     "l": {
+      "type": "number",
+      "value": {
+       "input": "levelReached"
+      }
+     },
+     "c": {
+      "type": "number",
+      "value": {
+       "input": "coreCount"
+      }
+     },
+     "s": "Spark",
+     "d": "{today}",
+     "b": []
+    }
+   }
+  },
+  {
+   "name": "countTotalRuns",
+   "description": "Count how many runs have been recorded",
+   "input": {
+    "type": "object",
+    "properties": {},
+    "required": []
+   },
+   "data": {
+    "op": "count",
+    "at": [
+     "meta.runs"
+    ]
+   }
+  }
+ ]
+}
